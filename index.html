@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+Telugu:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* RESET & BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Georgia', serif;
@@ -25,12 +24,12 @@
             min-height: 100vh;
         }
 
-        /* CONTROLS (Screen Only) */
+        /* CONTROLS (Input Area) */
         .controls {
             background: white;
             padding: 20px;
             width: 100%;
-            max-width: 420px;
+            max-width: 380px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
@@ -38,144 +37,94 @@
         }
         
         .status-bar {
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            color: #666;
-            background: #f0f0f0;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            font-family: 'Inter', sans-serif; font-size: 11px; color: #666;
+            background: #f0f0f0; padding: 10px; border-radius: 6px;
+            margin-bottom: 15px; display: flex; flex-direction: column; gap: 6px;
         }
         
         .status-item { display: flex; align-items: center; gap: 8px; }
-        
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #ccc;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        
+        .status-dot { height: 8px; width: 8px; background-color: #ccc; border-radius: 50%; display: inline-block; }
         .status-dot.loading { background-color: #ffa500; animation: blink 1s infinite; }
         .status-dot.success { background-color: #25D366; }
         .status-dot.error { background-color: #ff4444; }
-
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 6px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .input-group input:focus { border-color: #d4af37; background: #fffdf5; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 4px; }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; outline: none; }
 
-        /* BUTTONS */
-        .actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            transition: opacity 0.2s;
-            color: white;
-            white-space: nowrap;
-        }
-        .btn:active { opacity: 0.8; }
+        .actions { display: flex; gap: 8px; margin-top: 15px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; color: white; }
         .btn-print { background-color: #333; }
         .btn-share { background-color: #25D366; }
         .btn-reset { background-color: #d9534f; flex: 0 0 auto; }
 
-        /* CARD DESIGN */
-        .card-wrapper { width: 100%; max-width: 420px; padding: 10px; }
+        /* THE CARD - FIXED SIZE */
+        .card-wrapper {
+            width: 380px; /* Force exact width for consistency */
+            margin: 0 auto;
+        }
+
         .rate-card {
             position: relative;
-            width: 100%;
+            width: 380px; /* Fixed width for sharing */
             background-color: #fff3e0;
             border: 4px solid #d4af37;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            overflow: hidden; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .bg-layer {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjxlHBUYQ9WBrZajYmGgGod1GTx6MfO_z_TygJkSg1SpHV9-WlOwBN4T37HidH5q0-Wu28ATC5oxfdqWeiXC7NNJPxzdW5UoiJrbNkF5gm3-m3CqQLG0Ogy0TXgutsYrgXdfYFBnTojC_Od_nsx3X5zWEMhj_Jtqx9mHCW1myrpxbmPY56hTt5SUxNe7V8/s1600/—Pngtree—hindu%20god%20vishwakarma%20seated%20on_22565292.png');
-            background-position: center; background-size: 80%; background-repeat: no-repeat;
-            opacity: 0.10; z-index: 0; pointer-events: none;
+            background-position: center; background-size: 85%; background-repeat: no-repeat;
+            opacity: 0.12; z-index: 0;
         }
 
         .card-content { position: relative; z-index: 1; }
-        .shop-name { color: #b00000; font-size: 22px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
-        .shop-place { font-size: 12px; color: #333; font-weight: bold; margin-bottom: 8px; }
-        .shop-contact { font-size: 15px; color: #000; font-weight: bold; margin-bottom: 20px; font-family: 'Inter', sans-serif; }
-        .date-section { margin-bottom: 20px; border-top: 1px dashed #d4af37; border-bottom: 1px dashed #d4af37; padding: 8px 0; }
-        .date-input { width: 100%; background: transparent; border: none; text-align: center; font-family: 'Georgia', serif; font-size: 15px; font-weight: bold; color: #444; outline: none; }
+        .shop-name { color: #b00000; font-size: 20px; font-weight: bold; margin-bottom: 2px; }
+        .shop-place { font-size: 14px; color: #333; font-weight: bold; margin-bottom: 5px; }
+        .shop-contact { font-size: 13px; color: #000; font-weight: bold; margin-bottom: 15px; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(255, 255, 255, 0.6); border: 1px solid #d4af37; }
-        th { background-color: #d4af37; color: white; padding: 10px; font-size: 14px; font-family: 'Noto Serif Telugu', serif; font-weight: bold; text-transform: uppercase; border: 1px solid #b38f1d; }
-        td { padding: 15px 10px; border: 1px solid #d4af37; font-size: 18px; vertical-align: middle; }
-        td:first-child { font-family: 'Noto Serif Telugu', serif; font-weight: bold; color: #5a2d0c; width: 50%; line-height: 1.4; }
-        .metal-sub { font-size: 12px; color: #777; font-family: 'Inter', sans-serif; display: block; }
-        .rate-value { font-family: 'Inter', sans-serif; font-weight: 700; color: #000; font-size: 24px; letter-spacing: 0.5px; }
+        .date-section { margin-bottom: 15px; border-top: 1px dashed #d4af37; border-bottom: 1px dashed #d4af37; padding: 6px 0; }
+        #dateDisplay { font-size: 14px; font-weight: bold; color: #444; }
+
+        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.7); border: 1px solid #d4af37; }
+        th { background-color: #d4af37; color: white; padding: 8px; font-size: 13px; font-family: 'Noto Serif Telugu', serif; }
+        td { padding: 12px 8px; border: 1px solid #d4af37; font-size: 16px; vertical-align: middle; }
+        td:first-child { font-family: 'Noto Serif Telugu', serif; font-weight: bold; color: #5a2d0c; text-align: left; }
+        .metal-sub { font-size: 11px; color: #666; font-family: 'Inter', sans-serif; display: block; }
+        .rate-value { font-family: 'Inter', sans-serif; font-weight: 700; color: #000; font-size: 22px; }
 
         @media print {
-            body { background: white; padding: 0; margin: 0; }
-            .controls, .actions, .card-wrapper { display: none; }
-            .rate-card { display: block; width: 100%; border: 4px solid #d4af37 !important; box-shadow: none; }
-            body { display: flex; justify-content: center; }
+            .controls, .actions { display: none !important; }
+            body { padding: 0; background: white; }
+            .rate-card { box-shadow: none; border: 4px solid #d4af37 !important; }
         }
     </style>
 </head>
 <body>
 
     <div class="controls" data-html2canvas-ignore="true">
-        <div id="fetchStatus" class="status-bar">
-            <div class="status-item" id="goldStatus">
-                <span class="status-dot loading"></span> <span id="goldText">Initializing...</span>
-            </div>
-            <div class="status-item" id="silverStatus">
-                <span class="status-dot loading"></span> <span id="silverText">Initializing...</span>
-            </div>
+        <div class="status-bar">
+            <div class="status-item" id="goldStatus"><span class="status-dot loading"></span> <span id="goldText">Live Gold...</span></div>
+            <div class="status-item" id="silverStatus"><span class="status-dot loading"></span> <span id="silverText">Live Silver...</span></div>
         </div>
-
         <div class="input-group">
-            <label>Gold Rate 24K (Pure / 10g)</label>
-            <input type="number" id="inputGold" placeholder="e.g. 72000" oninput="manualUpdate()">
+            <label>Gold 24K / 10g</label>
+            <input type="number" id="inputGold" oninput="manualUpdate()">
         </div>
-
         <div class="input-group">
-            <label>Silver Rate (1 kg)</label>
-            <input type="number" id="inputSilver" placeholder="e.g. 76000" oninput="manualUpdate()">
+            <label>Silver / 1kg</label>
+            <input type="number" id="inputSilver" oninput="manualUpdate()">
         </div>
-
         <div class="actions">
-            <button class="btn btn-print" onclick="window.print()">🖨️ PDF</button>
-            <button class="btn btn-share" onclick="shareCard()">📤 Share</button>
-            <button class="btn btn-reset" onclick="resetData()">🔄 Reset</button>
+            <button class="btn btn-print" onclick="window.print()">PDF</button>
+            <button class="btn btn-share" onclick="shareCard()">Share Image</button>
+            <button class="btn btn-reset" onclick="resetData()">Reset</button>
         </div>
     </div>
 
@@ -184,25 +133,22 @@
             <div class="bg-layer"></div>
             <div class="card-content">
                 <div class="shop-name">SAI TEJA JEWELLERY WORKS</div>
-                <div class="shop-place">Kamalanagar , Vanasthalipuram</div>
-                <div class="shop-contact">📱 98661 21314 &nbsp;|&nbsp; 📱 95531 21314</div>
+                <div class="shop-place">Kamalanagar, Vanasthalipuram</div>
+                <div class="shop-contact">📱 98661 21314 | 95531 21314</div>
                 <div class="date-section">
-                    <input type="text" id="dateDisplay" class="date-input" value="">
+                    <span id="dateDisplay"></span>
                 </div>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Metal / లోహం</th>
-                            <th>Rate / ధర (₹)</th>
-                        </tr>
+                        <tr><th>Metal / లోహం</th><th>Rate / ధర (₹)</th></tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>GOLD (24K) <span class="metal-sub">స్వచ్ఛమైన బంగారం (10g)</span></td>
+                            <td>GOLD (24K)<br><span class="metal-sub">బంగారం (10g)</span></td>
                             <td class="rate-value" id="dispGold">-</td>
                         </tr>
                         <tr>
-                            <td>SILVER <span class="metal-sub">వెండి (1 kg)</span></td>
+                            <td>SILVER<br><span class="metal-sub">వెండి (1 kg)</span></td>
                             <td class="rate-value" id="dispSilver">-</td>
                         </tr>
                     </tbody>
@@ -213,30 +159,25 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        // INIT & DATA MANAGEMENT
         function init() {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
-            document.getElementById('dateDisplay').value = now.toLocaleDateString('en-IN', options);
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+            document.getElementById('dateDisplay').innerText = now.toLocaleDateString('en-IN', options);
 
-            const savedGold = localStorage.getItem('saiTejaGold');
-            const savedSilver = localStorage.getItem('saiTejaSilver');
-            if (savedGold) document.getElementById('inputGold').value = savedGold;
-            if (savedSilver) document.getElementById('inputSilver').value = savedSilver;
+            const sg = localStorage.getItem('saiTejaGold');
+            const ss = localStorage.getItem('saiTejaSilver');
+            if (sg) document.getElementById('inputGold').value = sg;
+            if (ss) document.getElementById('inputSilver').value = ss;
 
             updateVisuals();
-            fetchAllRates(); 
+            // Add your fetch logic here if needed
         }
 
-        function formatINR(number) {
-            return number ? "₹ " + new Intl.NumberFormat('en-IN').format(number) : "-";
-        }
+        function formatINR(n) { return n ? "₹ " + new Intl.NumberFormat('en-IN').format(n) : "-"; }
 
         function updateVisuals() {
-            const goldVal = document.getElementById('inputGold').value;
-            const silverVal = document.getElementById('inputSilver').value;
-            document.getElementById('dispGold').innerText = formatINR(goldVal);
-            document.getElementById('dispSilver').innerText = formatINR(silverVal);
+            document.getElementById('dispGold').innerText = formatINR(document.getElementById('inputGold').value);
+            document.getElementById('dispSilver').innerText = formatINR(document.getElementById('inputSilver').value);
         }
 
         function manualUpdate() {
@@ -246,49 +187,42 @@
         }
 
         function resetData() {
-            if(!confirm("Clear all data?")) return;
-            localStorage.clear();
-            location.reload();
+            if(confirm("Clear data?")) { localStorage.clear(); location.reload(); }
         }
 
-        // FETCHING (Placeholders for your existing logic)
-        async function fetchAllRates() {
-            // Your existing fetchGoldGroww() and fetchSilverGoodReturns() logic goes here
-        }
-
-        // SHARE
         async function shareCard() {
             const card = document.getElementById('cardToCapture');
             const btn = document.querySelector('.btn-share');
-            btn.innerText = "Processing...";
+            btn.innerText = "Generating...";
+
             try {
-                const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#fff3e0' });
+                const canvas = await html2canvas(card, {
+                    width: 380,
+                    height: card.offsetHeight,
+                    scale: 3, // High quality
+                    useCORS: true,
+                    backgroundColor: "#fff3e0"
+                });
+
                 canvas.toBlob(async (blob) => {
                     const file = new File([blob], "SaiTeja_Rates.png", { type: "image/png" });
-                    if (navigator.share) {
-                        await navigator.share({ files: [file], title: 'Sai Teja Jewellery Rates' });
+                    if (navigator.share && navigator.canShare({ files: [file] })) {
+                        await navigator.share({ files: [file], title: 'Gold Rates' });
                     } else {
                         const link = document.createElement('a');
                         link.href = canvas.toDataURL();
                         link.download = "SaiTeja_Rates.png";
                         link.click();
                     }
-                    btn.innerText = "📤 Share";
+                    btn.innerText = "Share Image";
                 });
-            } catch (err) { alert("Error."); btn.innerText = "📤 Share"; }
+            } catch (err) { alert("Error sharing."); btn.innerText = "Share Image"; }
         }
 
-        // SERVICE WORKER REGISTRATION
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-            .then(() => console.log("PWA Active"))
-            .catch((err) => console.log("PWA Offline Fail", err));
+            navigator.serviceWorker.register('./sw.js');
         }
-
         window.onload = init;
     </script>
 </body>
-
 </html>
-
-
