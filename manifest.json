@@ -1,0 +1,15 @@
+{
+  "short_name": "SaiTeja",
+  "name": "Sai Teja Jewellery Works",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjxlHBUYQ9WBrZajYmGgGod1GTx6MfO_z_TygJkSg1SpHV9-WlOwBN4T37HidH5q0-Wu28ATC5oxfdqWeiXC7NNJPxzdW5UoiJrbNkF5gm3-m3CqQLG0Ogy0TXgutsYrgXdfYFBnTojC_Od_nsx3X5zWEMhj_Jtqx9mHCW1myrpxbmPY56hTt5SUxNe7V8/s1600/—Pngtree—hindu%20god%20vishwakarma%20seated%20on_22565292.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#d4af37",
+  "background_color": "#fff3e0"
+}

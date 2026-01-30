@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Teja Jewellery - Rate Card</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d4af37">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+Telugu:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* RESET & BASE */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* CONTROLS (Screen Only) */
+        .controls {
+            background: white;
+            padding: 20px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-top: 5px solid #d4af37;
+        }
+        
+        .status-bar {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .status-item { display: flex; align-items: center; gap: 8px; }
+        
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .status-dot.loading { background-color: #ffa500; animation: blink 1s infinite; }
+        .status-dot.success { background-color: #25D366; }
+        .status-dot.error { background-color: #ff4444; }
+
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-group input:focus { border-color: #d4af37; background: #fffdf5; }
+
+        /* BUTTONS */
+        .actions { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            transition: opacity 0.2s;
+            color: white;
+            white-space: nowrap;
+        }
+        .btn:active { opacity: 0.8; }
+        .btn-print { background-color: #333; }
+        .btn-share { background-color: #25D366; }
+        .btn-reset { background-color: #d9534f; flex: 0 0 auto; }
+
+        /* CARD DESIGN */
+        .card-wrapper { width: 100%; max-width: 420px; padding: 10px; }
+        .rate-card {
+            position: relative;
+            width: 100%;
+            background-color: #fff3e0;
+            border: 4px solid #d4af37;
+            padding: 25px;
+            text-align: center;
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .bg-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjxlHBUYQ9WBrZajYmGgGod1GTx6MfO_z_TygJkSg1SpHV9-WlOwBN4T37HidH5q0-Wu28ATC5oxfdqWeiXC7NNJPxzdW5UoiJrbNkF5gm3-m3CqQLG0Ogy0TXgutsYrgXdfYFBnTojC_Od_nsx3X5zWEMhj_Jtqx9mHCW1myrpxbmPY56hTt5SUxNe7V8/s1600/—Pngtree—hindu%20god%20vishwakarma%20seated%20on_22565292.png');
+            background-position: center; background-size: 80%; background-repeat: no-repeat;
+            opacity: 0.10; z-index: 0; pointer-events: none;
+        }
+
+        .card-content { position: relative; z-index: 1; }
+        .shop-name { color: #b00000; font-size: 22px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
+        .shop-place { font-size: 16px; color: #333; font-weight: bold; margin-bottom: 8px; }
+        .shop-contact { font-size: 15px; color: #000; font-weight: bold; margin-bottom: 20px; font-family: 'Inter', sans-serif; }
+        .date-section { margin-bottom: 20px; border-top: 1px dashed #d4af37; border-bottom: 1px dashed #d4af37; padding: 8px 0; }
+        .date-input { width: 100%; background: transparent; border: none; text-align: center; font-family: 'Georgia', serif; font-size: 15px; font-weight: bold; color: #444; outline: none; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: rgba(255, 255, 255, 0.6); border: 1px solid #d4af37; }
+        th { background-color: #d4af37; color: white; padding: 10px; font-size: 14px; font-family: 'Noto Serif Telugu', serif; font-weight: bold; text-transform: uppercase; border: 1px solid #b38f1d; }
+        td { padding: 15px 10px; border: 1px solid #d4af37; font-size: 18px; vertical-align: middle; }
+        td:first-child { font-family: 'Noto Serif Telugu', serif; font-weight: bold; color: #5a2d0c; width: 50%; line-height: 1.4; }
+        .metal-sub { font-size: 12px; color: #777; font-family: 'Inter', sans-serif; display: block; }
+        .rate-value { font-family: 'Inter', sans-serif; font-weight: 700; color: #000; font-size: 24px; letter-spacing: 0.5px; }
+
+        @media print {
+            body { background: white; padding: 0; margin: 0; }
+            .controls, .actions, .card-wrapper { display: none; }
+            .rate-card { display: block; width: 100%; border: 4px solid #d4af37 !important; box-shadow: none; }
+            body { display: flex; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls" data-html2canvas-ignore="true">
+        <div id="fetchStatus" class="status-bar">
+            <div class="status-item" id="goldStatus">
+                <span class="status-dot loading"></span> <span id="goldText">Initializing...</span>
+            </div>
+            <div class="status-item" id="silverStatus">
+                <span class="status-dot loading"></span> <span id="silverText">Initializing...</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Gold Rate 24K (Pure / 10g)</label>
+            <input type="number" id="inputGold" placeholder="e.g. 72000" oninput="manualUpdate()">
+        </div>
+
+        <div class="input-group">
+            <label>Silver Rate (1 kg)</label>
+            <input type="number" id="inputSilver" placeholder="e.g. 76000" oninput="manualUpdate()">
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-print" onclick="window.print()">🖨️ PDF</button>
+            <button class="btn btn-share" onclick="shareCard()">📤 Share</button>
+            <button class="btn btn-reset" onclick="resetData()">🔄 Reset</button>
+        </div>
+    </div>
+
+    <div class="card-wrapper">
+        <div class="rate-card" id="cardToCapture">
+            <div class="bg-layer"></div>
+            <div class="card-content">
+                <div class="shop-name">SAI TEJA JEWELLERY WORKS</div>
+                <div class="shop-place">Kamalanagar , Vanasthalipuram</div>
+                <div class="shop-contact">📱 98661 21314 &nbsp;|&nbsp; 📱 95531 21314</div>
+                <div class="date-section">
+                    <input type="text" id="dateDisplay" class="date-input" value="">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metal / లోహం</th>
+                            <th>Rate / ధర (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GOLD (24K) <span class="metal-sub">స్వచ్ఛమైన బంగారం (10g)</span></td>
+                            <td class="rate-value" id="dispGold">-</td>
+                        </tr>
+                        <tr>
+                            <td>SILVER <span class="metal-sub">వెండి (1 kg)</span></td>
+                            <td class="rate-value" id="dispSilver">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // INIT & DATA MANAGEMENT
+        function init() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+            document.getElementById('dateDisplay').value = now.toLocaleDateString('en-IN', options);
+
+            const savedGold = localStorage.getItem('saiTejaGold');
+            const savedSilver = localStorage.getItem('saiTejaSilver');
+            if (savedGold) document.getElementById('inputGold').value = savedGold;
+            if (savedSilver) document.getElementById('inputSilver').value = savedSilver;
+
+            updateVisuals();
+            fetchAllRates(); 
+        }
+
+        function formatINR(number) {
+            return number ? "₹ " + new Intl.NumberFormat('en-IN').format(number) : "-";
+        }
+
+        function updateVisuals() {
+            const goldVal = document.getElementById('inputGold').value;
+            const silverVal = document.getElementById('inputSilver').value;
+            document.getElementById('dispGold').innerText = formatINR(goldVal);
+            document.getElementById('dispSilver').innerText = formatINR(silverVal);
+        }
+
+        function manualUpdate() {
+            updateVisuals();
+            localStorage.setItem('saiTejaGold', document.getElementById('inputGold').value);
+            localStorage.setItem('saiTejaSilver', document.getElementById('inputSilver').value);
+        }
+
+        function resetData() {
+            if(!confirm("Clear all data?")) return;
+            localStorage.clear();
+            location.reload();
+        }
+
+        // FETCHING (Placeholders for your existing logic)
+        async function fetchAllRates() {
+            // Your existing fetchGoldGroww() and fetchSilverGoodReturns() logic goes here
+        }
+
+        // SHARE
+        async function shareCard() {
+            const card = document.getElementById('cardToCapture');
+            const btn = document.querySelector('.btn-share');
+            btn.innerText = "Processing...";
+            try {
+                const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#fff3e0' });
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], "SaiTeja_Rates.png", { type: "image/png" });
+                    if (navigator.share) {
+                        await navigator.share({ files: [file], title: 'Sai Teja Jewellery Rates' });
+                    } else {
+                        const link = document.createElement('a');
+                        link.href = canvas.toDataURL();
+                        link.download = "SaiTeja_Rates.png";
+                        link.click();
+                    }
+                    btn.innerText = "📤 Share";
+                });
+            } catch (err) { alert("Error."); btn.innerText = "📤 Share"; }
+        }
+
+        // SERVICE WORKER REGISTRATION
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log("PWA Active"))
+            .catch((err) => console.log("PWA Offline Fail", err));
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
